@@ -1,14 +1,28 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/Platformer.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
 
-[node name="Player" type="KinematicBody2D"]
+[sub_resource type="RectangleShape2D" id=2]
+
+[node name="Player" type="KinematicBody2D" groups=[
+"players",
+]]
 script = ExtResource( 1 )
 JUMPFORCE = 350
-ACCEL = 25
+ACCEL = 35
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2( 5, 5 )
 shape = SubResource( 1 )
+
+[node name="playerHere" type="Area2D" parent="."]
+collision_mask = 6
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="playerHere"]
+visible = false
+scale = Vector2( 5, 5 )
+shape = SubResource( 2 )
+
+[connection signal="area_entered" from="playerHere" to="." method="_on_playerHere_area_entered"]
